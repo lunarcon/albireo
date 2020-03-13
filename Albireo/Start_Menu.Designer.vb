@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Start
+Partial Class Start_Menu
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -25,8 +25,10 @@ Partial Class Start
         Me.components = New System.ComponentModel.Container()
         Me.Header = New System.Windows.Forms.Panel()
         Me.UCon = New System.Windows.Forms.Panel()
+        Me.UserTile1 = New Albireo.UserTile()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.SearchBox1 = New Albireo.SearchBox()
         Me.Sep = New System.Windows.Forms.Panel()
         Me.UserGreet = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -40,8 +42,6 @@ Partial Class Start
         Me.lbl1 = New System.Windows.Forms.LinkLabel()
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer3 = New System.Windows.Forms.Timer(Me.components)
-        Me.UserTile1 = New Albireo.UserTile()
-        Me.SearchBox1 = New Albireo.SearchBox()
         Me.Header.SuspendLayout()
         Me.UCon.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -55,7 +55,7 @@ Partial Class Start
         Me.Header.Controls.Add(Me.Panel3)
         Me.Header.Dock = System.Windows.Forms.DockStyle.Top
         Me.Header.Location = New System.Drawing.Point(0, 0)
-        Me.Header.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Header.Margin = New System.Windows.Forms.Padding(2)
         Me.Header.Name = "Header"
         Me.Header.Size = New System.Drawing.Size(1066, 125)
         Me.Header.TabIndex = 0
@@ -66,16 +66,27 @@ Partial Class Start
         Me.UCon.Controls.Add(Me.Panel2)
         Me.UCon.Dock = System.Windows.Forms.DockStyle.Fill
         Me.UCon.Location = New System.Drawing.Point(0, 0)
-        Me.UCon.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.UCon.Margin = New System.Windows.Forms.Padding(2)
         Me.UCon.Name = "UCon"
         Me.UCon.Size = New System.Drawing.Size(614, 125)
         Me.UCon.TabIndex = 0
+        '
+        'UserTile1
+        '
+        Me.UserTile1.AutoSize = True
+        Me.UserTile1.BackColor = System.Drawing.Color.FromArgb(CType(CType(10, Byte), Integer), CType(CType(10, Byte), Integer), CType(CType(10, Byte), Integer))
+        Me.UserTile1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.UserTile1.Location = New System.Drawing.Point(20, 0)
+        Me.UserTile1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.UserTile1.Name = "UserTile1"
+        Me.UserTile1.Size = New System.Drawing.Size(594, 125)
+        Me.UserTile1.TabIndex = 1
         '
         'Panel2
         '
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
-        Me.Panel2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel2.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(20, 125)
         Me.Panel2.TabIndex = 0
@@ -85,16 +96,24 @@ Partial Class Start
         Me.Panel3.Controls.Add(Me.SearchBox1)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel3.Location = New System.Drawing.Point(614, 0)
-        Me.Panel3.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel3.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(452, 125)
         Me.Panel3.TabIndex = 1
+        '
+        'SearchBox1
+        '
+        Me.SearchBox1.Location = New System.Drawing.Point(27, 41)
+        Me.SearchBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.SearchBox1.Name = "SearchBox1"
+        Me.SearchBox1.Size = New System.Drawing.Size(394, 42)
+        Me.SearchBox1.TabIndex = 0
         '
         'Sep
         '
         Me.Sep.BackColor = System.Drawing.Color.FromArgb(CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer), CType(CType(30, Byte), Integer))
         Me.Sep.Location = New System.Drawing.Point(615, 150)
-        Me.Sep.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Sep.Margin = New System.Windows.Forms.Padding(2)
         Me.Sep.Name = "Sep"
         Me.Sep.Size = New System.Drawing.Size(2, 505)
         Me.Sep.TabIndex = 1
@@ -135,7 +154,7 @@ Partial Class Start
         '
         Me.AppList.AutoScroll = True
         Me.AppList.Location = New System.Drawing.Point(20, 197)
-        Me.AppList.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.AppList.Margin = New System.Windows.Forms.Padding(2)
         Me.AppList.Name = "AppList"
         Me.AppList.Size = New System.Drawing.Size(619, 457)
         Me.AppList.TabIndex = 17
@@ -154,7 +173,7 @@ Partial Class Start
         Me.Panel1.Controls.Add(Me.Libs)
         Me.Panel1.Controls.Add(Me.Recents)
         Me.Panel1.Location = New System.Drawing.Point(621, 197)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(436, 457)
         Me.Panel1.TabIndex = 29
@@ -178,7 +197,7 @@ Partial Class Start
         'Libs
         '
         Me.Libs.Location = New System.Drawing.Point(21, 314)
-        Me.Libs.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Libs.Margin = New System.Windows.Forms.Padding(2)
         Me.Libs.Name = "Libs"
         Me.Libs.Size = New System.Drawing.Size(415, 128)
         Me.Libs.TabIndex = 19
@@ -186,7 +205,7 @@ Partial Class Start
         'Recents
         '
         Me.Recents.Location = New System.Drawing.Point(21, 37)
-        Me.Recents.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Recents.Margin = New System.Windows.Forms.Padding(2)
         Me.Recents.Name = "Recents"
         Me.Recents.Size = New System.Drawing.Size(413, 211)
         Me.Recents.TabIndex = 0
@@ -231,26 +250,7 @@ Partial Class Start
         '
         Me.Timer3.Interval = 10
         '
-        'UserTile1
-        '
-        Me.UserTile1.AutoSize = True
-        Me.UserTile1.BackColor = System.Drawing.Color.FromArgb(CType(CType(10, Byte), Integer), CType(CType(10, Byte), Integer), CType(CType(10, Byte), Integer))
-        Me.UserTile1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.UserTile1.Location = New System.Drawing.Point(20, 0)
-        Me.UserTile1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.UserTile1.Name = "UserTile1"
-        Me.UserTile1.Size = New System.Drawing.Size(594, 125)
-        Me.UserTile1.TabIndex = 1
-        '
-        'SearchBox1
-        '
-        Me.SearchBox1.Location = New System.Drawing.Point(27, 41)
-        Me.SearchBox1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.SearchBox1.Name = "SearchBox1"
-        Me.SearchBox1.Size = New System.Drawing.Size(394, 42)
-        Me.SearchBox1.TabIndex = 0
-        '
-        'Start
+        'Start_Menu
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -266,8 +266,8 @@ Partial Class Start
         Me.Controls.Add(Me.UserGreet)
         Me.Controls.Add(Me.Header)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
-        Me.Name = "Start"
+        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.Name = "Start_Menu"
         Me.Opacity = 0R
         Me.ShowIcon = False
         Me.ShowInTaskbar = False

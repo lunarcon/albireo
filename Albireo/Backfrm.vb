@@ -4,7 +4,7 @@ Public Class Backfrm
     Private Sub Backfrm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         roundthethingy(Me, 20)
         EnableBlur()
-        Start.BringToFront()
+        Start_Menu.BringToFront()
     End Sub
     Protected Overrides ReadOnly Property CreateParams As CreateParams
         Get
@@ -17,7 +17,7 @@ Public Class Backfrm
     End Property
 
     Private Sub roundthethingy(oj As Object, rad As Integer)
-        Location = Start.Location
+        Location = Start_Menu.Location
         Dim p As New Drawing2D.GraphicsPath()
         p.StartFigure()
         p.AddArc(New Rectangle(0, 0, rad, rad), 180, 90)
@@ -84,6 +84,6 @@ Public Class Backfrm
         Marshal.FreeHGlobal(accentPtr)
     End Sub
     Private Sub Backfrm_GotFocus(sender As Object, e As EventArgs) Handles Me.GotFocus
-        Start.BringToFront()
+        Start_Menu.BringToFront()
     End Sub
 End Class

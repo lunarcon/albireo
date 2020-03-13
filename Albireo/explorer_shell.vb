@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.ComponentModel
+Imports System.IO
 Imports Microsoft.Win32
 
 Public Class explorer_shell
@@ -36,7 +37,7 @@ Public Class explorer_shell
     End Sub
 
     Private Sub explorer_shell_Deactivate(sender As Object, e As EventArgs) Handles Me.Deactivate
-        SendToBack()
+
     End Sub
 
     Private Function AddIcon(fname As String, mode As Integer)
@@ -111,19 +112,7 @@ Public Class explorer_shell
         source.Button1.Image = bm_dest
     End Sub
 
-    Private Sub Panel1_Click(sender As Object, e As EventArgs) Handles Panel1.Click
-        Exitsh()
-    End Sub
-
-    Private Sub AppList_Paint(sender As Object, e As PaintEventArgs) Handles AppList.Paint
-
-    End Sub
-
     Private Sub AppList_Click(sender As Object, e As EventArgs) Handles AppList.Click
-        sender.focus
-    End Sub
-
-    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
-
+        Exitsh()
     End Sub
 End Class

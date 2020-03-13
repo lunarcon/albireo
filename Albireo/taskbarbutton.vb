@@ -1,42 +1,71 @@
-﻿Public Class taskbarbutton
-    Declare Function SetForegroundWindow Lib "user32.dll" (ByVal hwnd As Integer) As Integer
-    <System.Runtime.InteropServices.DllImport("user32.dll")>
-    Private Shared Function ShowWindow(ByVal hWnd As IntPtr, ByVal flags As ShowWindowEnum) As Boolean
-    End Function
-    <System.Runtime.InteropServices.DllImport("user32.dll")>
-    Private Shared Function SetForegroundWindow(ByVal hwnd As IntPtr) As Integer
-    End Function
-    Private Enum ShowWindowEnum
-        Hide = 0
-        ShowNormal = 1
-        ShowMinimized = 2
-        ShowMaximized = 3
-        Maximize = 3
-        ShowNormalNoActivate = 4
-        Show = 5
-        Minimize = 6
-        ShowMinNoActivate = 7
-        ShowNoActivate = 8
-        Restore = 9
-        ShowDefault = 10
-        ForceMinimized = 11
-    End Enum
+﻿Imports System.Runtime.InteropServices
 
-    Public Sub BringMainWindowToFront(ByVal processName As Integer)
-        Dim bProcess As Process = Process.GetProcessById(processName)
+Public Class taskbarbutton
+    'Declare Auto Function FindWindow Lib "User32.dll" (ByVal lpClassName As String, ByVal lpWindowName As String) As IntPtr
 
-        If bProcess IsNot Nothing Then
+    'Declare Auto Function ForeGroundWindow Lib "User32.dll" (ByVal Hwnd As IntPtr) As Long
 
-            If bProcess.MainWindowHandle = IntPtr.Zero Then
-                ShowWindow(bProcess.Handle, ShowWindowEnum.ShowMaximized)
-            End If
-
-            SetForegroundWindow(bProcess.MainWindowHandle)
-        Else
-        End If
-    End Sub
+    Public hwnd As Integer = Tag
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        hwnd = Tag
+        AppActivate(sender.tag)
+        minWindow()
+    End Sub
 
-        BringMainWindowToFront(Val(Tag))
+    Private Sub Button1_MouseHover(sender As Object, e As EventArgs) Handles Button1.MouseHover
+
+    End Sub
+    <DllImport("user32.dll")>
+    Private Shared Function GetWindowPlacement(ByVal hWnd As IntPtr, ByRef lpwndpl As WINDOWPLACEMENT) As Boolean
+
+    End Function
+    <DllImport("user32.dll", SetLastError:=True)>
+    Private Shared Function FindWindow(ByVal lpClassName As String, ByVal lpWindowName As String) As IntPtr
+
+    End Function
+    <DllImport("user32.dll")>
+    Private Shared Function SetWindowPlacement(ByVal hWnd As IntPtr, ByRef lpwndpl As WINDOWPLACEMENT) As Boolean
+
+    End Function
+
+    Private Structure POINTAPI
+        Public x As Integer
+        Public y As Integer
+    End Structure
+
+    Private Structure RECT
+        Public left As Integer
+        Public top As Integer
+        Public right As Integer
+        Public bottom As Integer
+    End Structure
+
+    Private Structure WINDOWPLACEMENT
+        Public length As Integer
+        Public flags As Integer
+        Public showCmd As Integer
+        Public ptMinPosition As POINTAPI
+        Public ptMaxPosition As POINTAPI
+        Public rcNormalPosition As RECT
+    End Structure
+
+    Private Sub WindowAction(ByVal className As String)
+        Dim app_hwnd As System.IntPtr
+        Dim wp As WINDOWPLACEMENT = New WINDOWPLACEMENT()
+        app_hwnd = FindWindow(className, Nothing)
+        GetWindowPlacement(app_hwnd, wp)
+        wp.showCmd = 1
+        SetWindowPlacement(app_hwnd, wp)
+    End Sub
+    Private Sub minWindow()
+        Dim processes As Process() = Process.GetProcessesByName(Name)
+        For Each p As Process In processes
+            Dim app_hwnd As System.IntPtr
+            Dim wp As WINDOWPLACEMENT = New WINDOWPLACEMENT()
+            app_hwnd = p.MainWindowHandle
+            GetWindowPlacement(app_hwnd, wp)
+            wp.showCmd = 1
+            SetWindowPlacement(app_hwnd, wp)
+        Next
     End Sub
 End Class

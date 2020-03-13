@@ -116,6 +116,7 @@
     <Compile Include="filebtn.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="NativeMethods.vb" />
     <Compile Include="Start_Menu.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -169,7 +170,6 @@
     <Compile Include="taskbarbutton.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="user32.vb" />
     <Compile Include="UserTile.Designer.vb">
       <DependentUpon>UserTile.vb</DependentUpon>
     </Compile>

@@ -10,7 +10,7 @@ Imports System.Text
 Imports Microsoft.WindowsAPICodePack.Shell
 Imports System.Windows.Media.Imaging
 
-Public Class Start
+Public Class Start_Menu
     Dim pinnedapps As String = CStr("C:\Users\" & GetUserName() & "\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\")
     Dim libraries As String = CStr("C:\Users\" & GetUserName() & "\")
     Dim recent As String = CStr("C:\Users\" & GetUserName() & "\AppData\Roaming\Microsoft\Windows\Recent\")

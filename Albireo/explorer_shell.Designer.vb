@@ -58,7 +58,7 @@ Partial Class explorer_shell
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "explorer_shell"
-        Me.Text = "explorer_shell"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.ResumeLayout(False)
 
