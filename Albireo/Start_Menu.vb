@@ -2,9 +2,13 @@
 Imports System.Drawing.Drawing2D
 Imports System.IO
 Imports System.Runtime.InteropServices
-Imports System.Shell32
 Imports IWshRuntimeLibrary
 Imports Microsoft.Win32
+Imports System.Collections.ObjectModel
+
+Imports System.Text
+Imports Microsoft.WindowsAPICodePack.Shell
+Imports System.Windows.Media.Imaging
 
 Public Class Start
     Dim pinnedapps As String = CStr("C:\Users\" & GetUserName() & "\AppData\Roaming\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar\")
@@ -12,11 +16,12 @@ Public Class Start
     Dim recent As String = CStr("C:\Users\" & GetUserName() & "\AppData\Roaming\Microsoft\Windows\Recent\")
     Dim allapps As String = CStr("C:\ProgramData\Microsoft\Windows\Start Menu\Programs\")
     Dim objShell = CreateObject("Shell.Application")
+
     Declare Function GetUserName Lib "advapi32.dll" Alias _
        "GetUserNameA" (ByVal lpBuffer As String,
        ByRef nSize As Integer) As Integer
-    Dim colorSystemAccent As UInteger = GetImmersiveColorFromColorSetEx(GetImmersiveUserColorSetPreference(False, False), GetImmersiveColorTypeFromName(Marshal.StringToHGlobalUni("ImmersiveSystemAccent")), False, 0)
-    Dim colorAccent As System.Drawing.Color = System.Drawing.Color.FromArgb((&HFF000000 And colorSystemAccent) >> 24, &HFF And colorSystemAccent, (&HFF00 And colorSystemAccent) >> 8, (&HFF0000 And colorSystemAccent) >> 16)
+    Public colorSystemAccent As UInteger = GetImmersiveColorFromColorSetEx(GetImmersiveUserColorSetPreference(False, False), GetImmersiveColorTypeFromName(Marshal.StringToHGlobalUni("ImmersiveSystemAccent")), False, 0)
+    Public colorAccent As System.Drawing.Color = System.Drawing.Color.FromArgb((&HFF000000 And colorSystemAccent) >> 24, &HFF And colorSystemAccent, (&HFF00 And colorSystemAccent) >> 8, (&HFF0000 And colorSystemAccent) >> 16)
 
     <DllImport("Uxtheme.dll", SetLastError:=True, CharSet:=CharSet.Auto, EntryPoint:="#95")>
     Public Shared Function GetImmersiveColorFromColorSetEx(ByVal dwImmersiveColorSet As UInteger, ByVal dwImmersiveColorType As UInteger, ByVal bIgnoreHighContrast As Boolean, ByVal dwHighContrastCacheMode As UInteger) As UInteger
@@ -65,6 +70,7 @@ Public Class Start
         Populate(pinnedapps, AppList)
         Populate(libraries, Libs)
         Populate(recent, Recents)
+        SurroundingSub()
     End Sub
 
     Private Sub Rescale(scale_factor As Single, bm_source As Bitmap, source As AppTile)
@@ -172,22 +178,22 @@ Public Class Start
                         Next
                     End If
                 ElseIf pnl.Name = Libs.Name Then
-                        For Each fldr As String In Directory.GetDirectories(Fpsth)
-                            If fldr.Contains("OneDrive") Or fldr.Contains("Videos") Or fldr.Contains("Music") Or fldr.Contains("Downloads") Or fldr.Contains("Desktop") Or fldr.Contains("3D Objects") Then
-                                Dim appx As New AppTile
-                                Dim appicon = AddIcon(fldr, 1)
-                                appx.Det.BackColor = pnl.BackColor
-                                Dim appname = Path.GetFileNameWithoutExtension(fldr)
-                                appx.Det.Text = appname
-                                appx.Det.Image = appicon
-                                Rescale(0.5, appx.Det.Image, appx)
-                                appx.Tag = fldr
-                                appx.Width -= 34
-                                pnl.Controls.Add(appx)
-                            End If
-                        Next
-                    ElseIf pnl.Name = Recents.Name Then
-                        Dim n As Integer = 0
+                    For Each fldr As String In Directory.GetDirectories(Fpsth)
+                        If fldr.Contains("OneDrive") Or fldr.Contains("Videos") Or fldr.Contains("Music") Or fldr.Contains("Downloads") Or fldr.Contains("Desktop") Or fldr.Contains("3D Objects") Then
+                            Dim appx As New AppTile
+                            Dim appicon = AddIcon(fldr, 1)
+                            appx.Det.BackColor = pnl.BackColor
+                            Dim appname = Path.GetFileNameWithoutExtension(fldr)
+                            appx.Det.Text = appname
+                            appx.Det.Image = appicon
+                            Rescale(0.5, appx.Det.Image, appx)
+                            appx.Tag = fldr
+                            appx.Width -= 34
+                            pnl.Controls.Add(appx)
+                        End If
+                    Next
+                ElseIf pnl.Name = Recents.Name Then
+                    Dim n As Integer = 0
                     For Each file As String In Directory.GetFiles(Fpsth)
                         n = pnl.Controls.Count
                         If n < 6 Then
@@ -266,10 +272,6 @@ Public Class Start
 #Enable Warning BC42104
     End Function
 
-    Private Sub lbl2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbl1.LinkClicked
-
-    End Sub
-
     Private Sub lbl1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbl2.LinkClicked
         objShell.WindowSwitcher
         Timer3.Enabled = True
@@ -290,11 +292,58 @@ Public Class Start
         Next
         AppList.Controls.Clear()
         If lbl1.Text = "All Apps" Then
-            Populate(allapps, AppList)
+            For i = 1 To Len("0123456789abcdefghijklmnopqrstuvwxyz") - 1
+                Dim sep As New separator
+                sep.txtme.Text = "0123456789abcdefghijklmnopqrstuvwxyz".Substring(i, 1).ToUpper
+                AppList.Controls.Add(sep)
+                Dim n As Integer = 0
+                For Each k As AppTile In als.Controls
+                    If k.Det.Text.ToLower.StartsWith("0123456789abcdefghijklmnopqrstuvwxyz".Substring(i, 1)) Then
+                        AppList.Controls.Add(k)
+                        n += 1
+                    End If
+                Next
+                If n = 0 Then
+                    AppList.Controls.Remove(sep)
+                End If
+            Next
             lbl1.Text = "Pinned"
         Else
             Populate(pinnedapps, AppList)
             lbl1.Text = "All Apps"
         End If
+    End Sub
+    Dim als As New FlowLayoutPanel
+
+    Private Sub SurroundingSub()
+        Dim FODLERID_AppsFolder = New Guid("{1e87508d-89c2-42f0-8a7e-645a0f50ca58}")
+        Dim appsFolder As ShellObject = CType(KnownFolderHelper.FromKnownFolderId(FODLERID_AppsFolder), ShellObject)
+        For Each app In CType(appsFolder, IKnownFolder)
+            Dim appx As New AppTile
+            Dim appicon = app.Thumbnail.SmallBitmapSource
+            appx.Det.BackColor = AppList.BackColor
+            Dim appname = app.Name
+            appx.Det.Text = appname
+            appx.Det.Image = BitmapFromSource(appicon)
+            Rescale(0.7, appx.Det.Image, appx)
+            appx.Tag = app.Properties.System.ParsingPath.Value
+            als.Controls.Add(appx)
+        Next
+
+    End Sub
+
+    Private Function BitmapFromSource(ByVal bitmapsource As BitmapSource) As System.Drawing.Bitmap
+        Dim bitmap As System.Drawing.Bitmap
+        Using outStream As MemoryStream = New MemoryStream()
+            Dim enc As BitmapEncoder = New BmpBitmapEncoder()
+            enc.Frames.Add(BitmapFrame.Create(bitmapsource))
+            enc.Save(outStream)
+            bitmap = New System.Drawing.Bitmap(outStream)
+        End Using
+        Return bitmap
+    End Function
+
+    Private Sub Lbl1_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lbl1.LinkClicked
+
     End Sub
 End Class

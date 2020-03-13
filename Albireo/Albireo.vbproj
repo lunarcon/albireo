@@ -48,17 +48,29 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack-Core.1.1.0.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.ShellExtensions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAPICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -92,11 +104,23 @@
     <Compile Include="Backfrm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.vb">
+    <Compile Include="explorer_shell.Designer.vb">
+      <DependentUpon>explorer_shell.vb</DependentUpon>
+    </Compile>
+    <Compile Include="explorer_shell.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Include="filebtn.Designer.vb">
+      <DependentUpon>filebtn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="filebtn.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Start_Menu.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Start_Menu.Designer.vb">
+      <DependentUpon>Start_Menu.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -120,6 +144,12 @@
     <Compile Include="SearchBox.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="separator.Designer.vb">
+      <DependentUpon>separator.vb</DependentUpon>
+    </Compile>
+    <Compile Include="separator.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Shell\IImageList.vb" />
     <Compile Include="Shell\IMAGEINFO.vb" />
     <Compile Include="Shell\IMAGELISTDRAWPARAMS.vb" />
@@ -127,6 +157,19 @@
     <Compile Include="Shell\RECT.vb" />
     <Compile Include="Shell\ShellEx.vb" />
     <Compile Include="Shell\SHFILEINFO.vb" />
+    <Compile Include="taskbar.Designer.vb">
+      <DependentUpon>taskbar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="taskbar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="taskbarbutton.Designer.vb">
+      <DependentUpon>taskbarbutton.vb</DependentUpon>
+    </Compile>
+    <Compile Include="taskbarbutton.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="user32.vb" />
     <Compile Include="UserTile.Designer.vb">
       <DependentUpon>UserTile.vb</DependentUpon>
     </Compile>
@@ -144,8 +187,14 @@
     <EmbeddedResource Include="Backfrm.resx">
       <DependentUpon>Backfrm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <EmbeddedResource Include="explorer_shell.resx">
+      <DependentUpon>explorer_shell.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="filebtn.resx">
+      <DependentUpon>filebtn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Start_Menu.resx">
+      <DependentUpon>Start_Menu.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -155,6 +204,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SearchBox.resx">
       <DependentUpon>SearchBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="separator.resx">
+      <DependentUpon>separator.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="taskbar.resx">
+      <DependentUpon>taskbar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="taskbarbutton.resx">
+      <DependentUpon>taskbarbutton.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserTile.resx">
       <DependentUpon>UserTile.vb</DependentUpon>
@@ -171,6 +229,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="IWshRuntimeLibrary">

@@ -29,7 +29,15 @@
         Try
             Process.Start(Tag)
         Catch ex As Exception
-            Shell(Tag)
+            Try
+                Shell(Tag)
+            Catch ey As Exception
+                Try
+                    Process.Start("shell:appsFolder\" & Tag)
+                Catch ez As Exception
+                    MsgBox(Tag)
+                End Try
+            End Try
         End Try
     End Sub
 
@@ -38,6 +46,9 @@
     End Sub
 
     Private Sub Det_MouseLeave(sender As Object, e As EventArgs) Handles Det.MouseLeave
-        Det.FlatAppearance.BorderColor = Det.BackColor
+        Try
+            Det.FlatAppearance.BorderColor = Det.BackColor
+        Catch
+        End Try
     End Sub
 End Class
