@@ -9,5 +9,6 @@ Basically winshell 2.0. Read readme.md at https://github.com/at-adityavikram/win
 
 ###  - Displays Recent Files
 ###  - Now with a working taskbar and desktop
+###  - Now also displays UWP apps in all apps list
 Most features same as Winshell, except for light theme.
 #### Warning! - You need to build the project first to view the designers
